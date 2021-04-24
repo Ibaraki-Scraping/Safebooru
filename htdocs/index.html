@@ -1,0 +1,516 @@
+<html>
+    <head>
+        <title>Downloadable waifus | Ibaraki</title>
+        <link rel="icon" href="icon.png">
+        <style type="text/css">
+        	html {
+        		height: 0;
+        	}
+
+			body {
+				font-family: monospace;
+				margin: 0;
+				margin-left: 20px;
+				margin-right: 20px;
+				margin-top: 95px;
+				background-color: #fff;
+			}
+			header {
+				width: 100%;
+				height: 75px;
+				background-color: rgb(100, 100, 255);
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+
+			div.icon {
+				height: 65px;
+				width: 65px;
+				padding: 5px;
+			}
+
+			.clickable {
+				cursor: pointer;
+			}
+
+			img {
+				width: 100%;
+				height: 100%;
+			}
+
+			.left {
+				float: left;
+			}
+
+			.right {
+				float: right;
+			}
+
+			div.menu {
+				margin-left: 50px;
+				margin-top: 20px;
+			}
+
+			div.menu a {
+				text-decoration: none;
+				color: black;
+				font-size: 25px;
+				margin-right: 50px;
+			}
+
+			footer {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				width: 100%;
+				height: 50px;
+				background-color: rgb(50, 50, 125);
+				color: white;
+			}
+
+			a {
+				color: unset;
+				text-decoration: none;
+			}
+
+			footer div {
+				margin-top: 16px;
+			}
+
+			div#list {
+				width: 30%;
+				float: left;
+				border-width: 2px;
+				border-color: black;
+				border-style: solid;
+				border-radius: 10px;
+
+			}
+
+			div#downloader {
+				width: 65%;
+				float: right;
+				border-width: 2px;
+				border-color: rgb(50, 50, 100);
+				border-style: solid;
+				border-radius: 10px;
+				background-color: rgb(200, 200, 255);
+			}
+
+			div#pending {
+				width: 65%;
+				float: right;
+				border-width: 2px;
+				border-color: rgb(50, 50, 100);
+				border-style: solid;
+				border-radius: 10px;
+				background-color: rgb(200, 200, 255);
+				margin-top: 3%;
+			}
+
+			a.down {
+				color: blue;
+				text-decoration: underline;
+			}
+
+			div#download p {
+				margin: 0;
+			}
+
+			div#download {
+				width: 80%;
+				display: grid;
+				grid: auto-flow / 1fr 1fr 1fr;
+				grid-template-columns: 1fr 60px 60px;
+				overflow-y: auto;
+				overflow-x: hidden;
+				height: calc(100% - 22px);
+				max-height: calc(100% - 22px - 32.37px);
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+
+			div#waiting {
+				width: 100%;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+
+			div#waiting div {
+				float: left;
+				min-width: 25%;
+				margin: 10px;
+			}
+
+			div#waiting div span:first-child {
+				margin-right: 10px;
+			}
+
+			div#download p:nth-child(n) {
+				margin-bottom: 10px;
+
+			}
+
+			div#download p:last-child {
+				padding-bottom: 0;
+			}
+
+			div#downloader input {
+				width: calc(40% - 90px);
+				margin-left: 5%;
+				margin-right: 5%;
+				background-color: transparent;
+				border-style: none;
+				border-bottom-style: solid;
+				border-bottom-width: 1px;
+				border-bottom-color: black;
+				height: 25px;
+				font-size: 18px;
+			}
+
+			div#downloader input#dir {
+				font-size: 12px;
+			}
+
+			div#downloader button {
+				width: 90px;
+				border-style: none;
+				background-color: rgb(150, 150, 230);
+				padding-left: 20px;
+				padding-right: 20px;
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+
+			div#proposals {
+				width: 90%;
+				height: 30%;
+				max-height: 30%;
+				overflow-y: auto;
+			}
+
+			div#proposals div {
+				float: left;
+				min-width: 20%;
+				margin: 10px;
+				cursor: pointer;
+			}
+
+			h3 {
+				margin: 0;
+				align-self: center;
+			}
+
+			div.status {
+				width: 100%;
+				height: calc(100% - 30% - 25px - 55.37px - 18px - 17px);
+			}
+
+			div#status {
+				display: grid;
+				grid: auto-flow / 1fr 1fr;
+				grid-template-columns: auto 60%;
+				height: 100%;
+			}
+
+			div#status span {
+				font-size: 15px;
+			}
+
+			div#console {
+				background-color: rgba(0, 0, 0, 0.75);
+				border-style: solid;
+				border-width: 1px;
+				height: 100%;
+				max-height: 100%;
+				overflow-y: auto;
+				border-radius: 5px;
+				border-bottom-right-radius: 7px;
+			}
+			div#console p {
+				margin: 0;
+				color: white;
+			}
+	</style>
+    </head>
+    <body onresize="resize();">
+    	<header>
+			<div class="icon clickable left" onclick="window.location = '/';">
+				<img src="./icon.png">
+			</div>
+		</header>
+
+		<div id="list" align="center">
+			<h2>Files</h2>
+			<div id="download" align="left">
+				<!-- AUTO FILL -->
+				<div align="center"><p>File Name</p></div><div align="center"><p></p></div><div align="center"><p>State</p></div>
+
+			</div>
+		</div>
+
+		<div align="center" id="downloader">
+			<h2>Downloader</h2>
+			<input type="text" name="tag" id="tag" oninput="predict(this)" placeholder="Tag"><input type="text" id="dir" placeholder="Directory"><button onclick="queue();">Add</button>
+			<div id="proposals">
+				<!-- AUTO FILL -->
+			</div>
+			<div class="status">
+				<h3>Download Status</h3>
+				<br>
+				<div id="status">
+					<div id="resum">
+						<!-- AUTO FILL -->
+						<p><span>TAG : </span></p>
+						<p><span>Status : </span>NONE</p>
+						<p><span>Downloaded : </span>0/0</p>
+					</div>
+					<div id="console" align="left">
+						<!-- AUTO FILL -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div align="center" id="pending">
+			<h2>Pending List</h2>
+			<div id="waiting">
+				<!-- AUTO FILL -->	
+			</div>
+		</div>
+
+		<footer>
+			<div align="center">
+				<p>Ibaraki - Made by Morgan DAYNES</p>
+			</div>
+		</footer>
+		<script type="text/javascript">
+			const list = document.getElementById("list");
+			const downloader = document.getElementById("downloader");
+			const pending = document.getElementById("pending");
+			const prop = document.getElementById("proposals");
+			const input = document.getElementById("tag");
+			const waiting = document.getElementById("waiting");
+			const consol = document.getElementById("console");
+			const files = document.getElementById("download");
+			const resum = document.getElementById("resum");
+			const dir = document.getElementById("dir");
+			const shell = require('electron').shell;
+            
+            const Safebooru = require("../lib/Safebooru.js").Safebooru;
+            const fs = require("fs");
+            let backup = {
+            	files: [],
+            	folder: "",
+            	tag: "",
+            	tot: -1,
+            	waiting: []
+            };
+
+            // INIT
+			resize();
+
+            if (fs.existsSync("./backup.json")) {
+            	backup = JSON.parse(fs.readFileSync("./backup.json"));
+            } else {
+            	fs.writeFileSync("./backup.json", JSON.stringify(backup));
+            }
+
+            if (backup.tot != -1) {
+            	input.value = backup.tag;
+            	dir.value = backup.folder;
+            	send();
+            }
+			
+			function resize() {
+				list.style.height = (window.innerHeight - 95 - 70) + "px";
+				downloader.style.height = ((window.innerHeight - 95 - 70)*(60/100)) + "px";
+				pending.style.height = ((window.innerHeight - 95 - 70)*(33/100)-1) + "px";
+			}
+
+			function predict(e) {
+				Safebooru.predict(e.value)
+				.then(text => {
+					const json = text;
+
+					prop.innerHTML = "";
+
+					for (let r of json) {
+						prop.innerHTML += "<div onclick='document.getElementById(\"" + e.id + "\").value=\"" + r.value + "\"'>" + r.value + "</div>";
+					}
+				});
+			}
+
+			function queue() {
+				backup.waiting.push({
+					tag: input.value,
+					folder: ((dir.value && dir.value != "") ? dir.value : "./")
+				});
+			}
+
+			function send() {
+				consol.innerHTML = "";
+				resum.innerHTML = `
+						<p><span>Tag : </span></p>
+						<p><span>Status : </span>NONE</p>
+						<p><span>Downloaded : </span>0/0</p>`;
+				files.innerHTML = "";
+
+				consol.innerHTML += "<p>Choosing tag : " + input.value + "</p>";
+				consol.innerHTML += "<p>Choosing dir : " + ((dir.value && dir.value != "") ? dir.value : "./") + "</p>";
+
+				let tag = input.value;
+				let folder = ((dir.value && dir.value != "") ? dir.value : "./");
+
+				resum.innerHTML = `
+						<p><span>Tag : </span>${tag}</p>
+						<p><span>Status : </span>RETREIVING</p>
+						<p><span>Downloaded : </span>0/0</p>`;
+
+				consol.innerHTML += "<p>Retreiving all artworks URL from tag : " + tag + "</p>";
+				consol.innerHTML += "<p>It can take a long time if there is many artworks</p>";
+
+				Safebooru.getPicsFromAllPages(tag).then(async (images) => {
+					consol.innerHTML += "<p>Retreived all artworks URL (" + images.length + ")</p>";
+
+					backup.tot = images.length;
+					backup.tag = tag;
+					backup.folder = folder;
+
+					fs.writeFileSync("./backup.json", JSON.stringify(backup));
+
+					resum.innerHTML = `
+						<p><span>Tag : </span>${tag}</p>
+						<p><span>Status : </span>DOWNLOADING</p>
+						<p><span>Downloaded : </span>0/${images.length}</p>`;
+
+					let cd = 0;
+					for (let url of images) {
+						if (cd > 900) {
+							files.innerHTML += '<p>There is too many files ...</p><p></p><p></p><p>No worry the ' + images.length + ' will be downloaded</p>';
+							break;
+						}
+						files.innerHTML += '<a class="down" id="' + url.split("=")[url.split("=").length-1] + '_img">' + url.split("=")[url.split("=").length-1] + '</a><div align="center"><p></p></div><div align="center"><p id=' + url.split("=")[url.split("=").length-1] + '>X</p></div>';
+						cd++;
+					}
+
+					let down = (consol.scrollTop == (consol.scrollHeight - consol.clientHeight));
+					let counter = 0;
+					let arr = [];
+					for (let url of images) {
+						if (!backupInclude(url)) {
+							let image = (await Safebooru.getFullSizeURL(await Safebooru.getImageURLFromPic(url)));
+							let name = image.url.split("/")[image.url.split("/").length-1];
+							name = name.split("?")[0];
+							fs.writeFileSync(folder + "/" + name, Buffer.from(image.buffer, 'base64'));
+							arr.push(name);
+							backup.files.push({url: url, name: name});
+
+							fs.writeFileSync("./backup.json", JSON.stringify(backup));
+
+							resum.innerHTML = `
+							<p><span>Tag : </span>${tag}</p>
+							<p><span>Status : </span>DOWNLOADING</p>
+							<p><span>Downloaded : </span>${arr.length}/${images.length}</p>`;
+							let down = (consol.scrollTop == (consol.scrollHeight - consol.clientHeight));
+							consol.innerHTML += "<p>Downloaded image from image " + arr.length + " / " + images.length + "</p>";
+							if (down) consol.scrollTop = consol.scrollHeight;
+
+							document.getElementById(url.split("=")[url.split("=").length-1]).innerHTML = "O";
+							document.getElementById(url.split("=")[url.split("=").length-1] + "_img").style.cursor = "pointer";
+							document.getElementById(url.split("=")[url.split("=").length-1] + "_img").onclick = () => {
+								if (folder.startsWith(".")) shell.openPath(__dirname + "/../" + folder + "/" + name);
+								else shell.openPath(folder + "/" + name);
+							};
+
+							counter ++;
+						} else {
+							arr.push(url);
+							resum.innerHTML = `
+							<p><span>Tag : </span>${tag}</p>
+							<p><span>Status : </span>DOWNLOADING</p>
+							<p><span>Downloaded : </span>${arr.length}/${images.length}</p>`;
+							let down = (consol.scrollTop == (consol.scrollHeight - consol.clientHeight));
+							consol.innerHTML += "<p>Already downloaded image URL from image " + arr.length + " / " + images.length + "</p>";
+							if (down) consol.scrollTop = consol.scrollHeight;
+
+							document.getElementById(url.split("=")[url.split("=").length-1]).innerHTML = "O";
+							document.getElementById(url.split("=")[url.split("=").length-1] + "_img").style.cursor = "pointer";
+							document.getElementById(url.split("=")[url.split("=").length-1] + "_img").onclick = () => {
+								if (folder.startsWith(".")) shell.openPath(__dirname + "/../" + folder + "/" + nameFromURL(url));
+								else shell.openPath(folder + "/" + nameFromURL(url));
+							};
+						}
+					}
+
+					backup = {
+		            	files: [],
+		            	folder: "",
+		            	tag: "",
+		            	tot: -1,
+		            	waiting: backup.waiting
+		            };
+
+		            fs.writeFileSync("./backup.json", JSON.stringify(backup));
+
+					consol.innerHTML = "";
+					resum.innerHTML = `
+							<p><span>Tag : </span></p>
+							<p><span>Status : </span>NONE</p>
+							<p><span>Downloaded : </span>0/0</p>`;
+					files.innerHTML = "";
+				});
+			}
+
+			function nameFromURL(url) {
+				for (let p of backup.files) {
+					if (p.url == url) return p.name;
+				}
+			}
+
+			function backupInclude(test) {
+				for (let p of backup.files) {
+					if (p.url == test) return true;
+				}
+				return false;
+			}
+
+			function octetToMax(value) {
+				let times = 0;
+				let vals = ["0", "Ko", "Mo", "Go", "To"];
+				while (value > 1024) {
+					value/=1024;
+					times++;
+				}
+
+				return Math.floor(value) + " " + vals[times];
+			}
+
+			setInterval(() => {
+				if (resum.innerHTML.includes("NONE") && backup.tot == -1) {
+					if (backup.waiting.length > 0) {
+						let bi = input.value;
+						let bd = dir.value;
+
+						input.value = backup.waiting[0].tag;
+            			dir.value = backup.waiting[0].folder;
+
+            			send();
+
+            			backup.waiting.shift();
+
+            			input.value = bi;
+            			dir.value = bd;
+					}
+				}
+				waiting.innerHTML = "";
+				for (let r in backup.waiting) {
+					waiting.innerHTML += "<div><span>" + (+r+1) + ".</span><span>" + backup.waiting[r].tag + "</span></div>";
+				}
+			}, 100);
+		</script>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+node_modules
+test
+.vscode
+package-lock.json
+backup.json
+Ibaraki-win32-x64

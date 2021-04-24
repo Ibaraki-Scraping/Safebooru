@@ -1,0 +1,25 @@
+{
+  "name": "safebooru-downloader",
+  "version": "1.0.0",
+  "description": "A Desc",
+  "main": "./lib/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./lib/main.js",
+    "electron": "electron .",
+    "build": "electron-packager . Ibaraki --platform=win32 --arch=x64 --icon=./htdocs/icon.png"
+  },
+  "author": "Ibaraki",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-html-parser": "^3.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.41",
+    "electron": "^12.0.4",
+    "electron-packager": "^15.2.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}
