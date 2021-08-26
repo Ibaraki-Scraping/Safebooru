@@ -1,7 +1,7 @@
 {
-  "name": "safebooru-downloader",
+  "name": "@ibaraki-douji/safebooru",
   "version": "1.0.0",
-  "description": "A Desc",
+  "description": "Download image from Safebooru",
   "main": "./lib/Safebooru.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

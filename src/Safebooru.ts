@@ -1,9 +1,9 @@
-import * as ax from "axios";
+import axios from "axios";
 import parse from "node-html-parser";
 
-const axios = ax.default;
+export = Safebooru;
 
-export class Safebooru {
+class Safebooru {
 
     private static BASE = "https://safebooru.org/";
 
@@ -45,6 +45,23 @@ export class Safebooru {
     public static async getImageURLFromPic(pic: string): Promise<string> {
         const html = parse((await axios.get(pic)).data);
         return html.querySelector("#image").getAttribute("src");
+    }
+
+    public static async getFullsizeImageURLFromPic(pic: string): Promise<string> {
+        let sample = await this.getImageURLFromPic(pic);
+        let final = sample.replace("samples", "images").replace("sample_", "");
+        try {
+            let res = await axios.head(final);
+            return final;
+        } catch (e) {
+            try {
+                let res = await axios.head(final.replace(".jpg", ".png"));
+                return final;
+            } catch (r) {
+                let res = await axios.head(sample);
+                return final;
+            }
+        }
     }
 
     public static async downloadFullSizeURL(sample: string): Promise<{url: string, buffer: Buffer}> {

@@ -1,9 +1,8 @@
-import { writeFileSync } from "node:fs";
-import { Safebooru } from "./Safebooru";
+import { writeFileSync } from "fs";
+import Safebooru = require("./Safebooru");
 
 (async () => {
   const TAG = "ibaraki_douji_(fate/grand_order)";
-
   //let urls = await Safebooru.getPicsFromFirstPage(TAG);
   //let urls = await Safebooru.getPicsFromPage(TAG, 0); //PAGES = (number of pics per pages)*(page n°XX)
   let urls = await Safebooru.getPicsFromAllPages(TAG);

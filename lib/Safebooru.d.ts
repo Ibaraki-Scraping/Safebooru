@@ -1,5 +1,6 @@
 /// <reference types="node" />
-export declare class Safebooru {
+export = Safebooru;
+declare class Safebooru {
     private static BASE;
     static predict(from: string): Promise<Array<{
         label: string;
@@ -9,6 +10,7 @@ export declare class Safebooru {
     static getPicsFromAllPages(tag: string): Promise<Array<string>>;
     static getPicsFromPage(tag: string, page: number): Promise<Array<string>>;
     static getImageURLFromPic(pic: string): Promise<string>;
+    static getFullsizeImageURLFromPic(pic: string): Promise<string>;
     static downloadFullSizeURL(sample: string): Promise<{
         url: string;
         buffer: Buffer;
